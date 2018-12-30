@@ -1,0 +1,9 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 56%;
+    margin: 20px 0 auto 25%;
+    cursor: pointer;
+}
