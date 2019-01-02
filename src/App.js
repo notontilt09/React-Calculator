@@ -66,6 +66,9 @@ class App extends React.Component {
    
   };
 
+  // ***********  UPDATE THIS FUNCTION TO BE ABLE TO CHAIN OPERATIONS TOGETHER WITHOUT NEEDING
+  // ***********  TO HIT ENTER TO SOLVE 
+
   // handle user typing on keyboard instead of clicking buttons
   handleKeyDown = (event) => {
     if (this.state.operand === '') {
@@ -156,46 +159,72 @@ class App extends React.Component {
         default:
           break;
       }
+    } else {
+      switch(event.key) {
+        case '/':
+          this.solve();
+          this.setState({operand: '\u00F7'});
+          break;
+        case '*':
+          this.solve();
+          this.setState({operand: '\u00D7'})
+          break;
+        case '-':
+          this.solve();
+          this.setState({operand: '\u2212'})
+          break;
+        case '+':
+          this.solve();
+          this.setState({operand: '\u002B'})
+          break;
+        default:
+          break;
+      }
     }
     // handle 'return' keyPress from keyboard as 'equals'
     if (event.key === 'Enter') {
       if(this.state.operand) {
-        switch(this.state.operand) {
-          case '\u00F7':
-            this.setState({
-              firstInput: (parseFloat(this.state.firstInput) / parseFloat(this.state.secondInput)).toString(),
-              operand: '',
-              secondInput: '0'
-            })
-            break;
-            // stopped here, working on making multiplacation work
-          case '\u00D7':
-            this.setState({
-              firstInput: (parseFloat(this.state.firstInput) * parseFloat(this.state.secondInput)).toString(),
-              operand: '',
-              secondInput: '0'
-            })
-            break;
-          case '\u2212':
-            this.setState({
-              firstInput: (parseFloat(this.state.firstInput) - parseFloat(this.state.secondInput)).toString(),
-              operand: '',
-              secondInput: '0'
-            })
-            break;
-          case '\u002B':
-            this.setState({
-              firstInput: (parseFloat(this.state.firstInput) + parseFloat(this.state.secondInput)).toString(),
-              operand: '',
-              secondInput: '0'
-            })
-            break;
-          default: 
-            break;
-        }
+        this.solve();
       }
     }
   };
+
+  // helper function to solve equations
+  solve = () => {
+    switch(this.state.operand) {
+      case '\u00F7':
+        this.setState({
+          firstInput: (parseFloat(this.state.firstInput) / parseFloat(this.state.secondInput)).toString(),
+          operand: '',
+          secondInput: '0'
+        })
+        break;
+        // stopped here, working on making multiplacation work
+      case '\u00D7':
+        this.setState({
+          firstInput: (parseFloat(this.state.firstInput) * parseFloat(this.state.secondInput)).toString(),
+          operand: '',
+          secondInput: '0'
+        })
+        break;
+      case '\u2212':
+        this.setState({
+          firstInput: (parseFloat(this.state.firstInput) - parseFloat(this.state.secondInput)).toString(),
+          operand: '',
+          secondInput: '0'
+        })
+        break;
+      case '\u002B':
+        this.setState({
+          firstInput: (parseFloat(this.state.firstInput) + parseFloat(this.state.secondInput)).toString(),
+          operand: '',
+          secondInput: '0'
+        })
+        break;
+      default: 
+        break;
+    }
+  }
 
   // helper function to remove the active button class which turns button orange after click
   removeActive = () => {
