@@ -41,26 +41,24 @@ class App extends React.Component {
           this.setState({
             firstInput: `${this.state.firstInput}${event.target.textContent}`
           });
-          const numButtons = document.querySelectorAll('.num-button');
-          numButtons.forEach(item => item.classList.remove('active'));
+          this.removeActive();
           event.target.classList.add('active');
         } 
       };
     } else {
-      const numButtons = document.querySelectorAll('.num-button');
       // if operand present, update state of secondInput
       if (this.state.secondInput === '0') {
         this.setState({
           secondInput: event.target.textContent
         });
-        numButtons.forEach(item => item.classList.remove('active'));
+        this.removeActive();
         event.target.classList.add('active');
       } else {
         if (this.state.secondInput.length < 10) {
           this.setState({
             secondInput: `${this.state.secondInput}${event.target.textContent}`
           });
-          numButtons.forEach(item => item.classList.remove('active'));
+          this.removeActive();
           event.target.classList.add('active');
         } 
       };
@@ -199,21 +197,38 @@ class App extends React.Component {
     }
   };
 
+  removeActive = () => {
+    const numButtons = document.querySelectorAll('.num-button');
+    const bigButtons = document.querySelectorAll('.big-button');
+    const actionButtons = document.querySelectorAll('.action-button');
+    numButtons.forEach(item => item.classList.remove('active'));
+    bigButtons.forEach(item => item.classList.remove('active'));
+    actionButtons.forEach(item => item.classList.remove('active'));
+  }
+
   // handle operand clicks on the calc display
   handleOperand = event => {
     if (this.state.operand === '') {
       switch(event.target.textContent) {
         case '\u00F7':
           this.setState({operand: '\u00F7'})
+          this.removeActive();
+          event.target.classList.add('active')
           break;
         case '\u00D7':
           this.setState({operand: '\u00D7'})
+          this.removeActive();
+          event.target.classList.add('active')
           break;
         case '\u2212':
           this.setState({operand: '\u2212'})
+          this.removeActive();
+          event.target.classList.add('active')
           break;
         case '\u002B':
           this.setState({operand: '\u002B'})
+          this.removeActive();
+          event.target.classList.add('active')
           break;
         default: 
           break;
@@ -221,6 +236,8 @@ class App extends React.Component {
     }
     if (event.target.textContent === '\u003D') {
       if (this.state.operand) {
+        this.removeActive();
+        event.target.classList.add('active');
         switch(this.state.operand) {
           case '\u00F7':
             this.setState({
@@ -261,8 +278,7 @@ class App extends React.Component {
 
   // clear the display and reset the App.state
   clearDisplay = () => {
-    const numButtons = document.querySelectorAll('.num-button');
-    numButtons.forEach(item => item.classList.remove('active'));
+    this.removeActive();
     this.setState({
       firstInput: '0',
       operand: '',

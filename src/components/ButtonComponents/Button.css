@@ -54,6 +54,14 @@
     padding-right: 2%;
 }
 
-.active {
+.actions .action-button.active {
+    background-color: darkorange;
+}
+
+.numbers .big-button.active {
+    background-color: darkorange;
+}
+
+.numbers .num-button.active {
     background-color: darkorange;
 }
