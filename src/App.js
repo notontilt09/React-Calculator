@@ -3,6 +3,7 @@ import './App.css';
 import Display from './components/DisplayComponents/CalculatorDisplay.js'
 import ButtonContainer from './components/ButtonComponents/ButtonContainer';
 
+
 class App extends React.Component {
   constructor() {
     super();
@@ -33,25 +34,34 @@ class App extends React.Component {
         this.setState({
           firstInput: event.target.textContent
         });
+        event.target.classList.add('active');
       } else {
         // add any numbers clicked to the end of the string of numbers with max length 10
         if (this.state.firstInput.length < 10) {
           this.setState({
             firstInput: `${this.state.firstInput}${event.target.textContent}`
           });
+          const numButtons = document.querySelectorAll('.num-button');
+          numButtons.forEach(item => item.classList.remove('active'));
+          event.target.classList.add('active');
         } 
       };
     } else {
+      const numButtons = document.querySelectorAll('.num-button');
       // if operand present, update state of secondInput
       if (this.state.secondInput === '0') {
         this.setState({
           secondInput: event.target.textContent
         });
+        numButtons.forEach(item => item.classList.remove('active'));
+        event.target.classList.add('active');
       } else {
         if (this.state.secondInput.length < 10) {
           this.setState({
             secondInput: `${this.state.secondInput}${event.target.textContent}`
           });
+          numButtons.forEach(item => item.classList.remove('active'));
+          event.target.classList.add('active');
         } 
       };
     }
@@ -251,6 +261,8 @@ class App extends React.Component {
 
   // clear the display and reset the App.state
   clearDisplay = () => {
+    const numButtons = document.querySelectorAll('.num-button');
+    numButtons.forEach(item => item.classList.remove('active'));
     this.setState({
       firstInput: '0',
       operand: '',
