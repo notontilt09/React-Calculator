@@ -234,6 +234,41 @@ class App extends React.Component {
         default: 
           break;
       };
+    } else {
+      this.removeActive();
+        event.target.classList.add('active');
+        switch(this.state.operand) {
+          case '\u00F7':
+            this.setState({
+              firstInput: (parseFloat(this.state.firstInput) / parseFloat(this.state.secondInput)).toString(),
+              operand: event.target.textContent,
+              secondInput: '0'
+            })
+            break;
+          case '\u00D7':
+            this.setState({
+              firstInput: (parseFloat(this.state.firstInput) * parseFloat(this.state.secondInput)).toString(),
+              operand: event.target.textContent,
+              secondInput: '0'
+            })
+            break;
+          case '\u2212':
+            this.setState({
+              firstInput: (parseFloat(this.state.firstInput) - parseFloat(this.state.secondInput)).toString(),
+              operand: event.target.textContent,
+              secondInput: '0'
+            })
+            break;
+          case '\u002B':
+            this.setState({
+              firstInput: (parseFloat(this.state.firstInput) + parseFloat(this.state.secondInput)).toString(),
+              operand: event.target.textContent,
+              secondInput: '0'
+            })
+            break;
+          default:
+            break;
+      }
     }
     if (event.target.textContent === '\u003D') {
       if (this.state.operand) {
@@ -247,7 +282,6 @@ class App extends React.Component {
               secondInput: '0'
             })
             break;
-            // stopped here, working on making multiplacation work
           case '\u00D7':
             this.setState({
               firstInput: (parseFloat(this.state.firstInput) * parseFloat(this.state.secondInput)).toString(),
