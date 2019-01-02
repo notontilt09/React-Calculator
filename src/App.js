@@ -66,9 +66,6 @@ class App extends React.Component {
    
   };
 
-  // ***********  UPDATE THIS FUNCTION TO BE ABLE TO CHAIN OPERATIONS TOGETHER WITHOUT NEEDING
-  // ***********  TO HIT ENTER TO SOLVE 
-
   // handle user typing on keyboard instead of clicking buttons
   handleKeyDown = (event) => {
     if (this.state.operand === '') {
