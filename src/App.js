@@ -197,6 +197,7 @@ class App extends React.Component {
     }
   };
 
+  // helper function to remove the active button class which turns button orange after click
   removeActive = () => {
     const numButtons = document.querySelectorAll('.num-button');
     const bigButtons = document.querySelectorAll('.big-button');
