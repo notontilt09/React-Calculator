@@ -30,19 +30,20 @@ class App extends React.Component {
     if (this.state.operand === '') {
       // if at initial state
       if (this.state.firstInput === '0') {
-        // setState of first input to the clicked button
+        // handle case of initial clicked button being the decimal point
         if (event.target.textContent === '.') {
           this.setState({
             firstInput: '0.'
           })
           event.target.classList.add('active');
-        } else {
+        } else { // setState of first input to the clicked button
           this.setState({
             firstInput: event.target.textContent
           });
           event.target.classList.add('active');
         }
       } else {
+        // logic to only allow one decimal point in the firstInput string
         if (this.state.firstInput.includes('.')) {
           if (event.target.textContent !== '.') {
             if (this.state.firstInput.length < 10) {
@@ -62,14 +63,16 @@ class App extends React.Component {
         }
         // add any numbers clicked to the end of the string of numbers with max length 10 
       };
-    } else {
-      // if operand present, update state of secondInput
+    } else { // if operand present, update state of secondInput
+      // if secondInput at initial state
       if (this.state.secondInput === '0') {
+        // handle case for first click of decimal point
         if (event.target.textContent === '.') {
           this.setState({
             secondInput: '0.'
           })
         } else {
+          // set state as button that was clicked
           this.setState({
             secondInput: event.target.textContent
           });
@@ -77,6 +80,7 @@ class App extends React.Component {
         this.removeActive();
         event.target.classList.add('active');
       } else {
+        // logic to only allow 1 decimal point in the secondInput string
         if (this.state.secondInput.includes('.')) {
           if (event.target.textContent !== ('.')) {
             if (this.state.secondInput.length < 10) {
@@ -96,7 +100,6 @@ class App extends React.Component {
         }  
       };
     }
-   
   };
 
   // handle user typing on keyboard instead of clicking buttons
