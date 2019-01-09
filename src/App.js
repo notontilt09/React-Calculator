@@ -43,7 +43,7 @@ class App extends React.Component {
           event.target.classList.add('active');
         }
       } else {
-        // logic to only allow one decimal point in the firstInput string
+        // logic to only allow one decimal point in the firstInput strings
         if (this.state.firstInput.includes('.')) {
           if (event.target.textContent !== '.') {
             if (this.state.firstInput.length < 10) {
@@ -101,6 +101,8 @@ class App extends React.Component {
       };
     }
   };
+
+  // ****** TODO: handleKeyDown on decimal point **********
 
   // handle user typing on keyboard instead of clicking buttons
   handleKeyDown = (event) => {
