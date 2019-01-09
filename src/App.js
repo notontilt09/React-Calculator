@@ -31,36 +31,69 @@ class App extends React.Component {
       // if at initial state
       if (this.state.firstInput === '0') {
         // setState of first input to the clicked button
-        this.setState({
-          firstInput: event.target.textContent
-        });
-        event.target.classList.add('active');
+        if (event.target.textContent === '.') {
+          this.setState({
+            firstInput: '0.'
+          })
+          event.target.classList.add('active');
+        } else {
+          this.setState({
+            firstInput: event.target.textContent
+          });
+          event.target.classList.add('active');
+        }
       } else {
-        // add any numbers clicked to the end of the string of numbers with max length 10
-        if (this.state.firstInput.length < 10) {
+        if (this.state.firstInput.includes('.')) {
+          if (event.target.textContent !== '.') {
+            if (this.state.firstInput.length < 10) {
+              this.setState({
+                firstInput: `${this.state.firstInput}${event.target.textContent}`
+              });
+              this.removeActive();
+              event.target.classList.add('active');
+            }
+          }
+        } else {
           this.setState({
             firstInput: `${this.state.firstInput}${event.target.textContent}`
           });
           this.removeActive();
           event.target.classList.add('active');
-        } 
+        }
+        // add any numbers clicked to the end of the string of numbers with max length 10 
       };
     } else {
       // if operand present, update state of secondInput
       if (this.state.secondInput === '0') {
-        this.setState({
-          secondInput: event.target.textContent
-        });
+        if (event.target.textContent === '.') {
+          this.setState({
+            secondInput: '0.'
+          })
+        } else {
+          this.setState({
+            secondInput: event.target.textContent
+          });
+        }
         this.removeActive();
         event.target.classList.add('active');
       } else {
-        if (this.state.secondInput.length < 10) {
+        if (this.state.secondInput.includes('.')) {
+          if (event.target.textContent !== ('.')) {
+            if (this.state.secondInput.length < 10) {
+              this.setState({
+                secondInput: `${this.state.secondInput}${event.target.textContent}`
+              });
+              this.removeActive();
+              event.target.classList.add('active');
+            }
+          }
+        } else {
           this.setState({
             secondInput: `${this.state.secondInput}${event.target.textContent}`
           });
           this.removeActive();
           event.target.classList.add('active');
-        } 
+        }  
       };
     }
    
@@ -228,9 +261,11 @@ class App extends React.Component {
     const numButtons = document.querySelectorAll('.num-button');
     const bigButtons = document.querySelectorAll('.big-button');
     const actionButtons = document.querySelectorAll('.action-button');
+    const decimal = document.querySelector('.decimal');
     numButtons.forEach(item => item.classList.remove('active'));
     bigButtons.forEach(item => item.classList.remove('active'));
     actionButtons.forEach(item => item.classList.remove('active'));
+    decimal.classList.remove('active');
   }
 
   // handle operand clicks on the calc display
